@@ -3,7 +3,7 @@
 if(WIN32)
 	set(_TEST_RESOURCES_RC resources.rc)
 endif()
-
+message(STATUS "Hello?")
 _add_exec(tester
 	drawtests.c
 	main.c

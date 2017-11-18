@@ -224,8 +224,8 @@ static void fillGradient(CGContextRef ctxt, uiDrawPath *p, uiDrawBrush *b)
 	colorspace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
 
 	// make the gradient
-	colors = uiAlloc(b->NumStops * 4 * sizeof (CGFloat), "CGFloat[]");
-	locations = uiAlloc(b->NumStops * sizeof (CGFloat), "CGFloat[]");
+	colors = (CGFloat*) uiAlloc(b->NumStops * 4 * sizeof (CGFloat), "CGFloat[]");
+	locations = (CGFloat*) uiAlloc(b->NumStops * sizeof (CGFloat), "CGFloat[]");
 	for (i = 0; i < b->NumStops; i++) {
 		colors[i * 4 + 0] = b->Stops[i].R;
 		colors[i * 4 + 1] = b->Stops[i].G;

@@ -27,7 +27,7 @@ if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE DEBUG CACHE STRING "" FORCE)
 endif()
 
-project(libui)
+project(libui CXX)
 option(BUILD_SHARED_LIBS "Whether to build libui as a shared library or a static library" ON)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/out")
@@ -45,6 +45,11 @@ if(APPLE)
 	# the / is required by some older versions of OS X
 	set(CMAKE_INSTALL_RPATH "@executable_path/")
 	set(CMAKE_MACOSX_RPATH TRUE)
+	
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -x objective-c")
+	# TODO remove -Wno-null-character
+  # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -x objective-c++ -Wno-null-character")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-null-character")
 elseif(WIN32)
 	set(_OSNAME windows)
 
@@ -104,7 +109,7 @@ else()
 	# don't use C_VERSION or CXX_VERSION because they use GNU standards
 	# TODO we can actually do this; set both C_EXTENSIONS and CXX_EXTENSIONS to OFF
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --std=c99")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11 -stdlib=libc++")
 
 	set(_COMMON_LDFLAGS
 		-fvisibility=hidden
@@ -146,6 +151,7 @@ target_compile_options(${_LIBUINAME}
 	PRIVATE ${_LIBUI_CFLAGS})
 # TODO link directories?
 if(BUILD_SHARED_LIBS)
+  set_target_properties(${_LIBUINAME} PROPERTIES LINKER_LANGUAGE CXX)
 	target_link_libraries(${_LIBUINAME}
 		PRIVATE ${_LIBUI_LIBS})
 endif()
@@ -193,6 +199,8 @@ macro(_add_exec _name)
 	add_executable(${_name}
 		WIN32 EXCLUDE_FROM_ALL
 		${ARGN})
+	message("ARGN=\"${ARGN}\"")
+  set_target_properties(${_name} PROPERTIES LINKER_LANGUAGE CXX)
 	target_link_libraries(${_name} libui ${_LIBUI_STATIC_RES})
 	_target_link_options_private(${_name}
 		_COMMON_LDFLAGS)

@@ -191,11 +191,11 @@ void finishNewTextField(NSTextField *t, BOOL isEntry)
 	[[t cell] setScrollable:YES];
 }
 
-static NSTextField *realNewEditableTextField(Class class)
+static NSTextField *realNewEditableTextField(Class temp)
 {
 	NSTextField *tf;
 
-	tf = [[class alloc] initWithFrame:NSZeroRect];
+	tf = [[temp alloc] initWithFrame:NSZeroRect];
 	[tf setSelectable:YES];		// otherwise the setting is masked by the editable default of YES
 	finishNewTextField(tf, YES);
 	return tf;
@@ -206,13 +206,13 @@ NSTextField *newEditableTextField(void)
 	return realNewEditableTextField([libui_intrinsicWidthNSTextField class]);
 }
 
-static uiEntry *finishNewEntry(Class class)
+static uiEntry *finishNewEntry(Class temp)
 {
 	uiEntry *e;
 
 	uiDarwinNewControl(uiEntry, e);
 
-	e->textfield = realNewEditableTextField(class);
+	e->textfield = realNewEditableTextField(temp);
 
 	if (entryDelegate == nil) {
 		entryDelegate = [[entryDelegateClass new] autorelease];

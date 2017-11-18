@@ -14,12 +14,12 @@ macro(_add_example _name)
 endmacro()
 
 _add_example(controlgallery
-	controlgallery/main.c
+	controlgallery/main.cpp
 	${_EXAMPLE_RESOURCES_RC}
 )
 
 _add_example(histogram
-	histogram/main.c
+	histogram/main.cpp
 	${_EXAMPLE_RESOURCES_RC}
 )
 
@@ -27,6 +27,7 @@ _add_example(cpp-multithread
 	cpp-multithread/main.cpp
 	${_EXAMPLE_RESOURCES_RC}
 )
+
 if(NOT WIN32)
 	target_link_libraries(cpp-multithread pthread)
 endif()

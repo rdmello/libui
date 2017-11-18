@@ -246,8 +246,8 @@ CTFontDescriptorRef matchTraits(CTFontDescriptorRef against, uiDrawTextWeight we
 
 		closeness[i].index = i;
 
-		current = CFArrayGetValueAtIndex(matching, i);
-		traits = CTFontDescriptorCopyAttribute(current, kCTFontTraitsAttribute);
+		current = (CTFontDescriptorRef) CFArrayGetValueAtIndex(matching, i);
+		traits = (CFDictionaryRef) CTFontDescriptorCopyAttribute(current, kCTFontTraitsAttribute);
 		if (traits == NULL) {
 			// couldn't get traits; be safe by ranking it lowest
 			// LONGTERM figure out what the longest possible distances are
@@ -258,7 +258,7 @@ CTFontDescriptorRef matchTraits(CTFontDescriptorRef against, uiDrawTextWeight we
 		}
 
 		symbolic = 0;			// assume no symbolic traits if none are listed
-		cfnum = CFDictionaryGetValue(traits, kCTFontSymbolicTrait);
+		cfnum = (CFNumberRef) CFDictionaryGetValue(traits, kCTFontSymbolicTrait);
 		if (cfnum != NULL) {
 			SInt32 s;
 
@@ -269,7 +269,7 @@ CTFontDescriptorRef matchTraits(CTFontDescriptorRef against, uiDrawTextWeight we
 		}
 
 		// now try weight
-		cfnum = CFDictionaryGetValue(traits, kCTFontWeightTrait);
+		cfnum = (CFNumberRef) CFDictionaryGetValue(traits, kCTFontWeightTrait);
 		if (cfnum != NULL) {
 			CGFloat val;
 
@@ -294,7 +294,7 @@ CTFontDescriptorRef matchTraits(CTFontDescriptorRef against, uiDrawTextWeight we
 			BOOL isOblique;
 
 			isOblique = NO;		// default value
-			styleName = CTFontDescriptorCopyAttribute(current, kCTFontStyleNameAttribute);
+			styleName = (CFStringRef) CTFontDescriptorCopyAttribute(current, kCTFontStyleNameAttribute);
 			if (styleName != NULL) {
 				CFRange range;
 
@@ -313,7 +313,7 @@ CTFontDescriptorRef matchTraits(CTFontDescriptorRef against, uiDrawTextWeight we
 		// now try width
 		// TODO this does not seem to be enough for Skia's extended variants; the width trait is 0 but the Expanded flag is on
 		// TODO verify the rest of this matrix (what matrix?)
-		cfnum = CFDictionaryGetValue(traits, kCTFontWidthTrait);
+		cfnum = (CFNumberRef) CFDictionaryGetValue(traits, kCTFontWidthTrait);
 		if (cfnum != NULL) {
 			CGFloat val;
 
@@ -354,7 +354,7 @@ CTFontDescriptorRef matchTraits(CTFontDescriptorRef against, uiDrawTextWeight we
 		return (a->distance > b->distance) - (a->distance < b->distance);
 	});
 	// and the first element of the sorted array is what we want
-	out = CFArrayGetValueAtIndex(matching, closeness[0].index);
+	out = (CTFontDescriptorRef) CFArrayGetValueAtIndex(matching, closeness[0].index);
 	CFRetain(out);			// get rule
 
 	// release everything

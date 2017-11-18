@@ -1,44 +1,44 @@
 # 3 june 2016
 
 list(APPEND _LIBUI_SOURCES
-	darwin/alloc.m
-	darwin/area.m
-	darwin/areaevents.m
-	darwin/autolayout.m
-	darwin/box.m
-	darwin/button.m
-	darwin/checkbox.m
-	darwin/colorbutton.m
-	darwin/combobox.m
-	darwin/control.m
-	darwin/datetimepicker.m
-	darwin/debug.m
-	darwin/draw.m
-	darwin/drawtext.m
-	darwin/editablecombo.m
-	darwin/entry.m
-	darwin/fontbutton.m
-	darwin/form.m
-	darwin/grid.m
-	darwin/group.m
-	darwin/image.m
-	darwin/label.m
-	darwin/main.m
-	darwin/map.m
-	darwin/menu.m
-	darwin/multilineentry.m
-	darwin/progressbar.m
-	darwin/radiobuttons.m
-	darwin/scrollview.m
-	darwin/separator.m
-	darwin/slider.m
-	darwin/spinbox.m
-	darwin/stddialogs.m
-	darwin/tab.m
-	darwin/text.m
-	darwin/util.m
-	darwin/window.m
-	darwin/winmoveresize.m
+	darwin/alloc.mm
+	darwin/area.mm
+	darwin/areaevents.mm
+	darwin/autolayout.mm
+	darwin/box.mm
+	darwin/button.mm
+	darwin/checkbox.mm
+	darwin/colorbutton.mm
+	darwin/combobox.mm
+	darwin/control.mm
+	darwin/datetimepicker.mm
+	darwin/debug.mm
+	darwin/draw.mm
+	darwin/drawtext.mm
+	darwin/editablecombo.mm
+	darwin/entry.mm
+	darwin/fontbutton.mm
+	darwin/form.mm
+	darwin/grid.mm
+	darwin/group.mm
+	darwin/image.mm
+	darwin/label.mm
+	darwin/main.mm
+	darwin/map.mm
+	darwin/menu.mm
+	darwin/multilineentry.mm
+	darwin/progressbar.mm
+	darwin/radiobuttons.mm
+	darwin/scrollview.mm
+	darwin/separator.mm
+	darwin/slider.mm
+	darwin/spinbox.mm
+	darwin/stddialogs.mm
+	darwin/tab.mm
+	darwin/text.mm
+	darwin/util.mm
+	darwin/window.mm
+	darwin/winmoveresize.mm
 )
 set(_LIBUI_SOURCES ${_LIBUI_SOURCES} PARENT_SCOPE)
 
@@ -68,7 +68,7 @@ macro(_handle_static)
 	add_library(libui STATIC ${_oname})
 	# otherwise cmake won't know which linker to use
 	set_target_properties(libui PROPERTIES
-		LINKER_LANGUAGE C)
+		LINKER_LANGUAGE CXX)
 	set(_aname)
 	set(_lname)
 	set(_oname)

@@ -23,15 +23,15 @@ struct onMoveDragParams {
 
 void onMoveDrag(struct onMoveDragParams *p, NSEvent *e)
 {
-	NSPoint new;
+	NSPoint temp;
 	NSRect frame;
 	CGFloat offx, offy;
 
-	new = makeIndependent([e locationInWindow], p->w);
+	temp = makeIndependent([e locationInWindow], p->w);
 	frame = p->initialFrame;
 
-	offx = new.x - p->initialPoint.x;
-	offy = new.y - p->initialPoint.y;
+	offx = temp.x - p->initialPoint.x;
+	offy = temp.y - p->initialPoint.y;
 	frame.origin.x += offx;
 	frame.origin.y += offy;
 
@@ -132,30 +132,30 @@ static void minMaxAutoLayoutSizes(NSWindow *w, NSSize *min, NSSize *max)
 	NSEnableScreenUpdates();
 }
 
-static void handleResizeLeft(NSRect *frame, NSPoint old, NSPoint new)
+static void handleResizeLeft(NSRect *frame, NSPoint old, NSPoint temp)
 {
-	frame->origin.x += new.x - old.x;
-	frame->size.width -= new.x - old.x;
+	frame->origin.x += temp.x - old.x;
+	frame->size.width -= temp.x - old.x;
 }
 
 // TODO properly handle the menubar
 // TODO wait, OS X does it for us?!
-static void handleResizeTop(NSRect *frame, NSPoint old, NSPoint new)
+static void handleResizeTop(NSRect *frame, NSPoint old, NSPoint temp)
 {
-	frame->size.height += new.y - old.y;
+	frame->size.height += temp.y - old.y;
 }
 
-static void handleResizeRight(NSRect *frame, NSPoint old, NSPoint new)
+static void handleResizeRight(NSRect *frame, NSPoint old, NSPoint temp)
 {
-	frame->size.width += new.x - old.x;
+	frame->size.width += temp.x - old.x;
 }
 
 
 // TODO properly handle the menubar
-static void handleResizeBottom(NSRect *frame, NSPoint old, NSPoint new)
+static void handleResizeBottom(NSRect *frame, NSPoint old, NSPoint temp)
 {
-	frame->origin.y += new.y - old.y;
-	frame->size.height -= new.y - old.y;
+	frame->origin.y += temp.y - old.y;
+	frame->size.height -= temp.y - old.y;
 }
 
 struct onResizeDragParams {
@@ -171,10 +171,10 @@ struct onResizeDragParams {
 
 static void onResizeDrag(struct onResizeDragParams *p, NSEvent *e)
 {
-	NSPoint new;
+	NSPoint temp;
 	NSRect frame;
 
-	new = makeIndependent([e locationInWindow], p->w);
+	temp = makeIndependent([e locationInWindow], p->w);
 	frame = p->initialFrame;
 
 	// horizontal
@@ -182,12 +182,12 @@ static void onResizeDrag(struct onResizeDragParams *p, NSEvent *e)
 	case uiWindowResizeEdgeLeft:
 	case uiWindowResizeEdgeTopLeft:
 	case uiWindowResizeEdgeBottomLeft:
-		handleResizeLeft(&frame, p->initialPoint, new);
+		handleResizeLeft(&frame, p->initialPoint, temp);
 		break;
 	case uiWindowResizeEdgeRight:
 	case uiWindowResizeEdgeTopRight:
 	case uiWindowResizeEdgeBottomRight:
-		handleResizeRight(&frame, p->initialPoint, new);
+		handleResizeRight(&frame, p->initialPoint, temp);
 		break;
 	}
 	// vertical
@@ -195,12 +195,12 @@ static void onResizeDrag(struct onResizeDragParams *p, NSEvent *e)
 	case uiWindowResizeEdgeTop:
 	case uiWindowResizeEdgeTopLeft:
 	case uiWindowResizeEdgeTopRight:
-		handleResizeTop(&frame, p->initialPoint, new);
+		handleResizeTop(&frame, p->initialPoint, temp);
 		break;
 	case uiWindowResizeEdgeBottom:
 	case uiWindowResizeEdgeBottomLeft:
 	case uiWindowResizeEdgeBottomRight:
-		handleResizeBottom(&frame, p->initialPoint, new);
+		handleResizeBottom(&frame, p->initialPoint, temp);
 		break;
 	}
 

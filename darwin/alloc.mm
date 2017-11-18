@@ -57,23 +57,23 @@ void *uiAlloc(size_t size, const char *type)
 	return DATA(out);
 }
 
-void *uiRealloc(void *p, size_t new, const char *type)
+void *uiRealloc(void *p, size_t mysize, const char *type)
 {
 	void *out;
 	size_t *s;
 
 	if (p == NULL)
-		return uiAlloc(new, type);
+		return uiAlloc(mysize, type);
 	p = BASE(p);
-	out = realloc(p, EXTRA + new);
+	out = realloc(p, EXTRA + mysize);
 	if (out == NULL) {
 		fprintf(stderr, "memory exhausted in uiRealloc()\n");
 		abort();
 	}
 	s = SIZE(out);
-	if (new <= *s)
-		memset(((uint8_t *) DATA(out)) + *s, 0, new - *s);
-	*s = new;
+	if (mysize <= *s)
+		memset(((uint8_t *) DATA(out)) + *s, 0, mysize - *s);
+	*s = mysize;
 	[allocations removeObject:[NSValue valueWithPointer:p]];
 	[allocations addObject:[NSValue valueWithPointer:out]];
 	return DATA(out);

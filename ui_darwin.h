@@ -7,9 +7,9 @@ This file assumes that you have imported <Cocoa/Cocoa.h> and "ui.h" beforehand. 
 #ifndef __LIBUI_UI_DARWIN_H__
 #define __LIBUI_UI_DARWIN_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
 
 typedef struct uiDarwinControl uiDarwinControl;
 struct uiDarwinControl {
@@ -217,8 +217,8 @@ _UI_EXTERN void uiDarwinNotifyVisibilityChanged(uiDarwinControl *c);
 _UI_EXTERN CGFloat uiDarwinMarginAmount(void *reserved);
 _UI_EXTERN CGFloat uiDarwinPaddingAmount(void *reserved);
 
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif
 
 #endif
