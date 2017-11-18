@@ -7,9 +7,9 @@ This file assumes that you have included <windows.h> and "ui.h" beforehand. It p
 #ifndef __LIBUI_UI_WINDOWS_H__
 #define __LIBUI_UI_WINDOWS_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
 
 typedef struct uiWindowsSizing uiWindowsSizing;
 
@@ -260,8 +260,8 @@ _UI_EXTERN BOOL uiWindowsShouldStopSyncEnableState(uiWindowsControl *c, int enab
 // TODO document
 _UI_EXTERN void uiWindowsControlNotifyVisibilityChanged(uiWindowsControl *c);
 
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif
 
 #endif
