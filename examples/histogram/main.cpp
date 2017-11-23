@@ -234,7 +234,7 @@ static void onColorChanged(uiColorButton *b, void *data)
 static int onClosing(uiWindow *w, void *data)
 {
 	uiControlDestroy(uiControl(mainwin));
-	uiQuit();
+	UI::uiQuit();
 	return 0;
 }
 
@@ -259,14 +259,14 @@ int main(void)
 	handler.KeyEvent = handlerKeyEvent;
 
 	memset(&o, 0, sizeof (uiInitOptions));
-	err = uiInit(&o);
+	err = UI::uiInit(&o);
 	if (err != NULL) {
 		fprintf(stderr, "error initializing ui: %s\n", err);
-		uiFreeInitError(err);
+		UI::uiFreeInitError(err);
 		return 1;
 	}
 
-	uiOnShouldQuit(shouldQuit, NULL);
+	UI::uiOnShouldQuit(shouldQuit, NULL);
 
 	mainwin = uiNewWindow("libui Histogram Example", 640, 480, 1);
 	uiWindowSetMargined(mainwin, 1);
@@ -303,7 +303,7 @@ int main(void)
 	uiBoxAppend(hbox, uiControl(histogram), 1);
 
 	uiControlShow(uiControl(mainwin));
-	uiMain();
-	uiUninit();
+	UI::uiMain();
+	UI::uiUninit();
 	return 0;
 }

@@ -40,20 +40,29 @@ struct uiInitOptions {
 	size_t Size;
 };
 
-_UI_EXTERN const char *uiInit(uiInitOptions *options);
-_UI_EXTERN void uiUninit(void);
-_UI_EXTERN void uiFreeInitError(const char *err);
+namespace UI 
+{
+	namespace Process
+	{
 
-_UI_EXTERN void uiMain(void);
-_UI_EXTERN void uiMainSteps(void);
-_UI_EXTERN int uiMainStep(int wait);
-_UI_EXTERN void uiQuit(void);
 
-_UI_EXTERN void uiQueueMain(void (*f)(void *data), void *data);
+	}
 
-_UI_EXTERN void uiOnShouldQuit(int (*f)(void *data), void *data);
+	_UI_EXTERN const char *uiInit(uiInitOptions *options);
+	_UI_EXTERN void uiUninit(void);
+	_UI_EXTERN void uiFreeInitError(const char *err);
 
-_UI_EXTERN void uiFreeText(char *text);
+	_UI_EXTERN void uiMain(void);
+	_UI_EXTERN void uiMainSteps(void);
+	_UI_EXTERN int uiMainStep(int wait);
+	_UI_EXTERN void uiQuit(void);
+
+	_UI_EXTERN void uiQueueMain(void (*f)(void *data), void *data);
+
+	_UI_EXTERN void uiOnShouldQuit(int (*f)(void *data), void *data);
+
+	_UI_EXTERN void uiFreeText(char *text);
+}
 
 typedef struct uiControl uiControl;
 

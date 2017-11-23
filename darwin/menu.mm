@@ -72,7 +72,7 @@ static void mapItemReleaser(void *key, void *value)
 - (IBAction)onQuitClicked:(id)sender
 {
 	if (shouldQuit())
-		uiQuit();
+		UI::uiQuit();
 }
 
 - (void)register:(NSMenuItem *)item to:(uiMenuItem *)smi

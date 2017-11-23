@@ -35,7 +35,7 @@ void threadproc(void)
 		base = ctime(&t);
 		s = new char[strlen(base) + 1];
 		strcpy(s, base);
-		uiQueueMain(sayTime, s);
+		UI::uiQueueMain(sayTime, s);
 	}
 }
 
@@ -45,7 +45,7 @@ int onClosing(uiWindow *w, void *data)
 	// C++ throws a hissy fit if you don't do this
 	// we might as well, to ensure no uiQueueMain() gets in after uiQuit()
 	timeThread->join();
-	uiQuit();
+	UI::uiQuit();
 	return 1;
 }
 
@@ -62,7 +62,7 @@ int main(void)
 	uiButton *btn;
 
 	memset(&o, 0, sizeof (uiInitOptions));
-	if (uiInit(&o) != NULL)
+	if (UI::uiInit(&o) != NULL)
 		abort();
 
 	w = uiNewWindow("Hello", 320, 240, 0);
@@ -87,6 +87,6 @@ int main(void)
 
 	uiWindowOnClosing(w, onClosing, NULL);
 	uiControlShow(uiControl(w));
-	uiMain();
+	UI::uiMain();
 	return 0;
 }

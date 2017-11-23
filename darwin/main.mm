@@ -107,7 +107,7 @@ static BOOL stepsIsRunning;
 
 uiInitOptions options;
 
-const char *uiInit(uiInitOptions *o)
+const char *UI::uiInit(uiInitOptions *o)
 {
 	@autoreleasepool {
 		options = *o;
@@ -132,7 +132,7 @@ const char *uiInit(uiInitOptions *o)
 	return NULL;
 }
 
-void uiUninit(void)
+void UI::uiUninit(void)
 {
 	if (!globalPool) {
 		userbug("You must call uiInit() first!");
@@ -147,11 +147,11 @@ void uiUninit(void)
 	}
 }
 
-void uiFreeInitError(const char *err)
+void UI::uiFreeInitError(const char *err)
 {
 }
 
-void uiMain(void)
+void UI::uiMain(void)
 {
 	isRunning = ^{
 		return [realNSApp() isRunning];
@@ -223,7 +223,7 @@ int mainStep(struct nextEventArgs *nea, BOOL (^interceptEvent)(NSEvent *e))
 	}
 }
 
-void uiQuit(void)
+void UI::uiQuit(void)
 {
 	canQuit = YES;
 	[realNSApp() terminate:realNSApp()];
@@ -231,7 +231,7 @@ void uiQuit(void)
 
 // thanks to mikeash in irc.freenode.net/#macdev for suggesting the use of Grand Central Dispatch for this
 // LONGTERM will dispatch_get_main_queue() break after _CFRunLoopSetCurrent()?
-void uiQueueMain(void (*f)(void *data), void *data)
+void UI::uiQueueMain(void (*f)(void *data), void *data)
 {
 	// dispatch_get_main_queue() is a serial queue so it will not execute multiple uiQueueMain() functions concurrently
 	// the signature of f matches dispatch_function_t

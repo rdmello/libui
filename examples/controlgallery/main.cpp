@@ -5,7 +5,7 @@
 
 static int onClosing(uiWindow *w, void *data)
 {
-	uiQuit();
+	UI::uiQuit();
 	return 1;
 }
 
@@ -172,7 +172,7 @@ static void onOpenFileClicked(uiButton *b, void *data)
 		return;
 	}
 	uiEntrySetText(entry, filename);
-	uiFreeText(filename);
+	UI::uiFreeText(filename);
 }
 
 static void onSaveFileClicked(uiButton *b, void *data)
@@ -186,7 +186,7 @@ static void onSaveFileClicked(uiButton *b, void *data)
 		return;
 	}
 	uiEntrySetText(entry, filename);
-	uiFreeText(filename);
+	UI::uiFreeText(filename);
 }
 
 static void onMsgBoxClicked(uiButton *b, void *data)
@@ -297,16 +297,16 @@ int main()
 	uiTab *tab;
 
 	memset(&options, 0, sizeof (uiInitOptions));
-	err = uiInit(&options);
+	err = UI::uiInit(&options);
 	if (err != NULL) {
 		fprintf(stderr, "error initializing libui: %s", err);
-		uiFreeInitError(err);
+		UI::uiFreeInitError(err);
 		return 1;
 	}
 
 	mainwin = uiNewWindow("libui Control Gallery", 640, 480, 1);
 	uiWindowOnClosing(mainwin, onClosing, NULL);
-	uiOnShouldQuit(onShouldQuit, mainwin);
+	UI::uiOnShouldQuit(onShouldQuit, mainwin);
 
 	tab = uiNewTab();
 	uiWindowSetChild(mainwin, uiControl(tab));
@@ -322,6 +322,6 @@ int main()
 	uiTabSetMargined(tab, 2, 1);
 
 	uiControlShow(uiControl(mainwin));
-	uiMain();
+	UI::uiMain();
 	return 0;
 }

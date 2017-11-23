@@ -10,7 +10,7 @@ static int defaultOnShouldQuit(void *data)
 static int (*onShouldQuit)(void *) = defaultOnShouldQuit;
 static void *onShouldQuitData;
 
-void uiOnShouldQuit(int (*f)(void *), void *data)
+void UI::uiOnShouldQuit(int (*f)(void *), void *data)
 {
 	onShouldQuit = f;
 	onShouldQuitData = data;
